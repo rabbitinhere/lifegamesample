@@ -5,8 +5,11 @@ import com.google.common.truth.Truth.assertThat
 
 class LifeGameTest {
 
+    /**
+     * 生命游戏单测
+     */
     @Test
-    public fun lifeGame()
+    fun testLifeGame()
     {
         val board1 = makeTestBoard2x2_1()
         LifeGame.gameOfLife(board1)
@@ -16,7 +19,34 @@ class LifeGameTest {
         val board2 = makeTestBoard4x4_2()
         LifeGame.gameOfLife(board2)
         assertThat(board2).isEqualTo(makeTestBoard4x4_3())
+    }
 
+    /**
+     * 可以模拟输出生命游戏，死循环，需要手动停止
+     * 需要在控制台查看输出，把控制台高度调低就可以很美观了
+     */
+    @Test
+    fun printLifeGame()
+    {
+        val board2 = makeTestBoard10x10_flight()
+        while (true) {
+            printBoard(board2)
+            LifeGame.gameOfLife(board2)
+            Thread.sleep(1000)
+        }
+    }
+
+    private fun printBoard(board: Array<IntArray>)
+    {
+        var res = "========\n"
+        for (m in board.indices){
+            var row = ""
+            for (n in board[m].indices){
+                row += "${board[m][n]} "
+            }
+            res += "$row\n"
+        }
+        println(res)
     }
 
 
@@ -30,7 +60,7 @@ class LifeGameTest {
 
 
     @Test
-    public fun testGetNumOfNeighbors()
+    fun testGetNumOfNeighbors()
     {
         assertThat(LifeGame.getNumOfNeighbors(makeTestBoard4x4_1(), 1, 1)).isEqualTo(4)
         assertThat(LifeGame.getNumOfNeighbors(makeTestBoard4x4_1(), 0, 1)).isEqualTo(3)
@@ -64,141 +94,9 @@ class LifeGameTest {
         return testBoard
     }
 
-    /**
-    00
-    00
-     */
-    private fun makeTestBoard2x2_2(): Array<IntArray>
-    {
-        val testBoard = Array(2) {
-            IntArray(2)
-        }
-        testBoard[0][0] = 0
-        testBoard[0][1] = 0
-
-        testBoard[1][0] = 0
-        testBoard[1][1] = 0
-
-        return testBoard
-    }
-
-    /**
-    1
-     */
-    private fun makeTestBoard1x1_1(): Array<IntArray>
-    {
-        val testBoard = Array(1) {
-            IntArray(1)
-        }
-        testBoard[0][0] = 1
-
-        return testBoard
-    }
-
-    /**
-    0100
-    1110
-    1001
-    1000
-     */
-    private fun makeTestBoard4x4_1(): Array<IntArray>
-    {
-        val testBoard = Array(4) {
-            IntArray(4)
-        }
-        testBoard[0][0] = 0
-        testBoard[0][1] = 1
-        testBoard[0][2] = 0
-        testBoard[0][3] = 0
-
-        testBoard[1][0] = 1
-        testBoard[1][1] = 1
-        testBoard[1][2] = 1
-        testBoard[1][3] = 0
-
-        testBoard[2][0] = 1
-        testBoard[2][1] = 0
-        testBoard[2][2] = 0
-        testBoard[2][3] = 1
-
-        testBoard[3][0] = 1
-        testBoard[3][1] = 0
-        testBoard[3][2] = 0
-        testBoard[3][3] = 0
-
-        return testBoard
-    }
-
-    /**
-    1010
-    1000
-    0000
-    0000
-     */
-    private fun makeTestBoard4x4_2(): Array<IntArray>
-    {
-        val testBoard = Array(4) {
-            IntArray(4)
-        }
-        testBoard[0][0] = 1
-        testBoard[0][1] = 0
-        testBoard[0][2] = 1
-        testBoard[0][3] = 0
-
-        testBoard[1][0] = 1
-        testBoard[1][1] = 0
-        testBoard[1][2] = 0
-        testBoard[1][3] = 0
-
-        testBoard[2][0] = 0
-        testBoard[2][1] = 0
-        testBoard[2][2] = 0
-        testBoard[2][3] = 0
-
-        testBoard[3][0] = 0
-        testBoard[3][1] = 0
-        testBoard[3][2] = 0
-        testBoard[3][3] = 0
-
-        return testBoard
-    }
-
-    /**
-    0100
-    0100
-    0000
-    0000
-     */
-    private fun makeTestBoard4x4_3(): Array<IntArray>
-    {
-        val testBoard = Array(4) {
-            IntArray(4)
-        }
-        testBoard[0][0] = 0
-        testBoard[0][1] = 1
-        testBoard[0][2] = 0
-        testBoard[0][3] = 0
-
-        testBoard[1][0] = 0
-        testBoard[1][1] = 1
-        testBoard[1][2] = 0
-        testBoard[1][3] = 0
-
-        testBoard[2][0] = 0
-        testBoard[2][1] = 0
-        testBoard[2][2] = 0
-        testBoard[2][3] = 0
-
-        testBoard[3][0] = 0
-        testBoard[3][1] = 0
-        testBoard[3][2] = 0
-        testBoard[3][3] = 0
-
-        return testBoard
-    }
 
     @Test
-    public fun testGetSearchList()
+    fun testGetSearchList()
     {
         assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 1, 1) == listOf(1, 2, 3, 4, 6, 7, 8, 9))
 
