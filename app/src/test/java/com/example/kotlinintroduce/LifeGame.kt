@@ -23,7 +23,7 @@ object LifeGame {
         //根据所有格子的二进制状态，将格子更新
         for (m in board.indices){
             for (n in board[m].indices){
-                board[m][n] = board[m][n] shr 1
+                board[m][n] = board[m][n] shr 1 //相当于>>
             }
         }
     }
@@ -58,10 +58,16 @@ object LifeGame {
 
     /**
      * 获取m n的点，查找非边界邻居的列表
+
+       1,2,3,4,6,7,8,9依次代表从左到右，然后从上到下数的8个邻居
+       例如:
+       123
+       4 6
+       789
      */
     fun getSearchList(board: Array<IntArray>, m: Int, n: Int): MutableList<Int>
     {
-        val mutableList = mutableListOf(1,2,3,4,6,7,8,9)//依次代表从左到右，然后从上到下数的8个邻居
+        val mutableList = mutableListOf(1,2,3,4,6,7,8,9)
         if(m - 1 < 0){
             //当前是第一行，上面三个邻居都是0
             mutableList.removeAll { it == 1 || it == 2 || it == 3 }
