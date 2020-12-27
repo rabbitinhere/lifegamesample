@@ -10,12 +10,12 @@ class LifeGameTest {
     {
         val board1 = makeTestBoard2x2_1()
         LifeGame.gameOfLife(board1)
-        println(board1.toString())
+        assertThat(board1).isEqualTo(makeTestBoard2x2_2())
 
 
         val board2 = makeTestBoard4x4_2()
         LifeGame.gameOfLife(board2)
-        println(board2.toString())
+        assertThat(board2).isEqualTo(makeTestBoard4x4_3())
 
     }
 
@@ -60,6 +60,24 @@ class LifeGameTest {
 
         testBoard[1][0] = 0
         testBoard[1][1] = 1
+
+        return testBoard
+    }
+
+    /**
+    00
+    00
+     */
+    private fun makeTestBoard2x2_2(): Array<IntArray>
+    {
+        val testBoard = Array(2) {
+            IntArray(2)
+        }
+        testBoard[0][0] = 0
+        testBoard[0][1] = 0
+
+        testBoard[1][0] = 0
+        testBoard[1][1] = 0
 
         return testBoard
     }
@@ -129,6 +147,40 @@ class LifeGameTest {
 
         testBoard[1][0] = 1
         testBoard[1][1] = 0
+        testBoard[1][2] = 0
+        testBoard[1][3] = 0
+
+        testBoard[2][0] = 0
+        testBoard[2][1] = 0
+        testBoard[2][2] = 0
+        testBoard[2][3] = 0
+
+        testBoard[3][0] = 0
+        testBoard[3][1] = 0
+        testBoard[3][2] = 0
+        testBoard[3][3] = 0
+
+        return testBoard
+    }
+
+    /**
+    0100
+    0100
+    0000
+    0000
+     */
+    private fun makeTestBoard4x4_3(): Array<IntArray>
+    {
+        val testBoard = Array(4) {
+            IntArray(4)
+        }
+        testBoard[0][0] = 0
+        testBoard[0][1] = 1
+        testBoard[0][2] = 0
+        testBoard[0][3] = 0
+
+        testBoard[1][0] = 0
+        testBoard[1][1] = 1
         testBoard[1][2] = 0
         testBoard[1][3] = 0
 

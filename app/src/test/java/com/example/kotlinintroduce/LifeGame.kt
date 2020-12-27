@@ -1,38 +1,29 @@
 package com.example.kotlinintroduce
 
 object LifeGame {
+
     fun gameOfLife(board: Array<IntArray>): Unit {
-        val tempBoard = board.clone()
-        for(rowIndex in board.indices){
-            tempBoard[rowIndex] = board[rowIndex].clone()  //必须这样才能完成真正的clone二维数组
-        }
-
-        for (m in tempBoard.indices){
-            for (n in tempBoard[m].indices){
-                board[m][n] = nextStatus(board[m][n], getNumOfNeighbors(tempBoard, m, n))
+        //这个循环会让所有的格子变成二进制状态
+        //比如 二进制10 代表原来是0，即将变成1；
+        //二进制11 代表原来是1，即将变成1；
+        //二进制01和00代表原来是1和0，即将变成0
+        for (m in board.indices){
+            for (n in board[m].indices){
+                val neighbors = getNumOfNeighbors(board, m, n)
+                if(board[m][n]==1){
+                    if(neighbors==2 || neighbors==3)
+                        board[m][n] = 3 //二进制11 代表原来是1，即将变成1
+                }else{
+                    if(neighbors==3)
+                        board[m][n] = 2 //二进制10 代表原来是0，即将变成1；
+                }
             }
         }
-    }
 
-    /**
-     * 计算一个原始点的下一代的状态
-     * 实现生命游戏规则
-     * @param originStatus 原始状态 0死亡 1生存
-     * @param numOfNeighbors 它当前的邻居数量
-     */
-    fun nextStatus(originStatus: Int, numOfNeighbors: Int): Int {
-        return when {
-            numOfNeighbors <= 1 -> {
-                0
-            }
-            numOfNeighbors == 2 -> {
-                originStatus
-            }
-            numOfNeighbors == 3 -> {
-                1
-            }
-            else -> {
-                0
+        //根据所有格子的二进制状态，将格子更新
+        for (m in board.indices){
+            for (n in board[m].indices){
+                board[m][n] = board[m][n] shr 1
             }
         }
     }
@@ -47,17 +38,22 @@ object LifeGame {
         //此时查找列表里的都是非边界的值，正常找不会越界
         searchList.forEach {
             when(it){
-                1 -> num += board[m - 1][n - 1]
-                2 -> num += board[m - 1][n]
-                3 -> num += board[m - 1][n + 1]
-                4 -> num += board[m][n - 1]
-                6 -> num += board[m][n + 1]
-                7 -> num += board[m + 1][n - 1]
-                8 -> num += board[m + 1][n]
-                9 -> num += board[m + 1][n + 1]
+                1 -> num += originValue(board[m - 1][n - 1])
+                2 -> num += originValue(board[m - 1][n])
+                3 -> num += originValue(board[m - 1][n + 1])
+                4 -> num += originValue(board[m][n - 1])
+                6 -> num += originValue(board[m][n + 1])
+                7 -> num += originValue(board[m + 1][n - 1])
+                8 -> num += originValue(board[m + 1][n])
+                9 -> num += originValue(board[m + 1][n + 1])
             }
         }
         return num
+    }
+
+    private fun originValue(value: Int): Int
+    {
+        return value and 1
     }
 
     /**
