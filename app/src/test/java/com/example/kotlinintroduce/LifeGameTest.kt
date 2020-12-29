@@ -25,7 +25,7 @@ class LifeGameTest {
      * 可以模拟输出生命游戏，死循环，需要手动停止
      * 需要在控制台查看输出，把控制台高度调低就可以很美观了
      */
-    @Test
+//    @Test
     fun printLifeGame()
     {
         val board2 = makeTestBoard10x10_flight()
@@ -98,25 +98,25 @@ class LifeGameTest {
     @Test
     fun testGetSearchList()
     {
-        assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 1, 1) == listOf(1, 2, 3, 4, 6, 7, 8, 9))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 1, 1) == 255)//11111111
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 1, 0) == listOf(2, 3, 6, 8, 9))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 1, 0) == 107)//01101011
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 0, 1) == listOf(4, 6, 7, 8, 9))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(4, 4), 0, 1) == 31)//00011111
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 2), 1, 1) == listOf(1, 2, 4))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 2), 1, 1) == 208)//11010000
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 2), 0, 1) == listOf(4, 7, 8))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 2), 0, 1) == 22)//00010110
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(1, 2), 0, 1) == listOf(4))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(1, 2), 0, 1) == 16)//00010000
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(1, 2), 0, 0) == listOf(6))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(1, 2), 0, 0) == 8)//00001000
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 1), 0, 0) == listOf(8))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 1), 0, 0) == 2)//00000010
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 1), 1, 0) == listOf(2))
+        assert(LifeGame.getSearchList(makeTestZeroBoard(2, 1), 1, 0) == 64)//01000000
 
-        assert(LifeGame.getSearchList(makeTestZeroBoard(1, 1), 0, 0) == emptyList<Int>())
+        assert(LifeGame.getSearchList(makeTestZeroBoard(1, 1), 0, 0) == 0)//00000000
     }
 
 }
