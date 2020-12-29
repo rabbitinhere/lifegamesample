@@ -25,7 +25,7 @@ class LifeGameTest {
      * 可以模拟输出生命游戏，死循环，需要手动停止
      * 需要在控制台查看输出，把控制台高度调低就可以很美观了
      */
-//    @Test
+    @Test
     fun printLifeGame()
     {
         val board2 = makeTestBoard10x10_flight()
@@ -51,14 +51,6 @@ class LifeGameTest {
 
 
 
-    private fun makeTestZeroBoard(m: Int, n: Int): Array<IntArray>{
-        val itemRow = IntArray(n)
-        return Array(m) {
-            itemRow
-        }
-    }
-
-
     @Test
     fun testGetNumOfNeighbors()
     {
@@ -72,26 +64,6 @@ class LifeGameTest {
         assertThat(LifeGame.getNumOfNeighbors(makeTestBoard2x2_1(), 0, 0)).isEqualTo(2)
         assertThat(LifeGame.getNumOfNeighbors(makeTestBoard2x2_1(), 0, 1)).isEqualTo(1)
         assertThat(LifeGame.getNumOfNeighbors(makeTestBoard2x2_1(), 1, 1)).isEqualTo(1)
-    }
-
-
-
-    /**
-    01
-    01
-     */
-    private fun makeTestBoard2x2_1(): Array<IntArray>
-    {
-        val testBoard = Array(2) {
-            IntArray(2)
-        }
-        testBoard[0][0] = 0
-        testBoard[0][1] = 1
-
-        testBoard[1][0] = 0
-        testBoard[1][1] = 1
-
-        return testBoard
     }
 
 

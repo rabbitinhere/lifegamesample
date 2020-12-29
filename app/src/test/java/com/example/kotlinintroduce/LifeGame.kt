@@ -2,14 +2,14 @@ package com.example.kotlinintroduce
 
 object LifeGame {
 
-    val A = 128  //10000000
-    val B = 64   //01000000
-    val C = 32   //00100000
-    val D = 16   //00010000
-    val E = 8    //00001000
-    val F = 4    //00000100
-    val G = 2    //00000010
-    val H = 1    //00000001
+    val A = 128  //10000000 左上
+    val B = 64   //01000000 上
+    val C = 32   //00100000 右上
+    val D = 16   //00010000 左
+    val E = 8    //00001000 右
+    val F = 4    //00000100 左下
+    val G = 2    //00000010 下
+    val H = 1    //00000001 右下
 
     fun gameOfLife(board: Array<IntArray>): Unit {
         //这个循环会让所有的格子变成二进制状态
@@ -20,11 +20,17 @@ object LifeGame {
             for (n in board[m].indices){
                 val neighbors = getNumOfNeighbors(board, m, n)
                 if(board[m][n]==1){
-                    if(neighbors==2 || neighbors==3)
-                        board[m][n] = 3 //二进制11 代表原来是1，即将变成1
+                    if(neighbors==2 || neighbors==3) {
+                        board[m][n] = 3 //二进制11 代表原来是1，即将变成1，下一局会存活
+                    } else {
+                        //保持不变，意味着高位是0，下一局会死掉
+                    }
                 }else{
-                    if(neighbors==3)
+                    if(neighbors==3) {
                         board[m][n] = 2 //二进制10 代表原来是0，即将变成1；
+                    }else{
+                        //保持不变，意味着高位是0，下一局保持死亡状态
+                    }
                 }
             }
         }
@@ -61,11 +67,19 @@ object LifeGame {
         return num
     }
 
+    /**
+     * 取可能是两位也可能是一位的底位值，即原始值
+     *
+     * （因为在主遍历的过程，可能导致有些值变成二进制了）
+     */
     private fun originValue(value: Int): Int
     {
         return value and 1
     }
 
+    /**
+     * 是否value在target为1的位上也是1
+     */
     private fun matchBit(value: Int, target: Int): Boolean
     {
         return target and value == target
@@ -73,6 +87,8 @@ object LifeGame {
 
     /**
      * 获取m n的点，查找非边界邻居的列表
+     * 本函数用来处理边界情况
+     *
 
        一个Int的八位Bit从高位到地位  依次代表查找时从左到右，然后从上到下数的8个邻居
        例如:
@@ -81,6 +97,7 @@ object LifeGame {
        100
        1 1
        111
+       为1的位置需要查找
      */
     fun getSearchList(board: Array<IntArray>, m: Int, n: Int): Int
     {

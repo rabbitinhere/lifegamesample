@@ -308,3 +308,28 @@ fun makeTestBoard10x10_flight(): Array<IntArray>
 
     return testBoard
 }
+
+fun makeTestZeroBoard(m: Int, n: Int): Array<IntArray>{
+    val itemRow = IntArray(n)
+    return Array(m) {
+        itemRow
+    }
+}
+
+/**
+01
+01
+ */
+fun makeTestBoard2x2_1(): Array<IntArray>
+{
+    val testBoard = Array(2) {
+        IntArray(2)
+    }
+    testBoard[0][0] = 0
+    testBoard[0][1] = 1
+
+    testBoard[1][0] = 0
+    testBoard[1][1] = 1
+
+    return testBoard
+}
