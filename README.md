@@ -8,4 +8,4 @@ LifeGameTest
 
 第二个单测可以在控制台输出生命游戏 “滑翔机” 的动态结果：
 
-![image](https://github.com/rabbitinhere/lifegamesample/preview.gif)
+![image](https://github.com/rabbitinhere/lifegamesample/raw/main/preview.gif)
